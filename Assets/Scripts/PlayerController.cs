@@ -20,4 +20,19 @@ public class PlayerController : MonoBehaviour
         // Hareket hýzýný hesapla
         rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Eðer çarpýþan obje Coin ise
+        if (collision.CompareTag("Coin"))
+        {
+            Debug.Log("Coin collected!");
+
+            // GameManager üzerinden skoru artýr
+            GameManager.Instance.AddScore(10);
+
+            // Coin objesini yok et
+            Destroy(collision.gameObject);
+        }
+    }
 }

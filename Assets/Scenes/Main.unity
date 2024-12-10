@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 343391448}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -608,7 +608,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformPrefab: {fileID: 471515936}
+  coinPrefab: {fileID: 6535123574475184760, guid: 222cbef03c37d594d92cf52fb0d2a8a7, type: 3}
   platformCount: 300
+  coinSpawnChance: 0.3
 --- !u!1001 &834397251
 PrefabInstance:
   m_ObjectHideFlags: 0
