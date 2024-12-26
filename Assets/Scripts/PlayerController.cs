@@ -4,35 +4,36 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 10f;
     public Rigidbody2D rb;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private Camera mainCamera; // Ana kamera referansý eklendi
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        mainCamera = Camera.main; // Ana kamerayý al
     }
 
     void Update()
     {
+        float moveDirection = 0;
+
         // PC için mouse kontrolü
-        if (Input.GetMouseButton(0)) // Mouse basýlý tutulduðunda
+        if (Input.GetMouseButton(0))
         {
             float screenHalf = Screen.width / 2f;
             Vector3 mousePos = Input.mousePosition;
 
             if (mousePos.x > screenHalf)
             {
-                // Saða git
-                rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+                moveDirection = 1;
             }
             else
             {
-                // Sola git
-                rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+                moveDirection = -1;
             }
-        }
-        else
-        {
-            // Mouse basýlý deðilse yatay hareketi durdur
-            rb.velocity = new Vector2(0, rb.velocity.y);
         }
 
         // Mobil için dokunma kontrolü
@@ -43,14 +44,42 @@ public class PlayerController : MonoBehaviour
 
             if (touch.position.x > screenHalf)
             {
-                // Saða git
-                rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+                moveDirection = 1;
             }
             else
             {
-                // Sola git
-                rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+                moveDirection = -1;
             }
+        }
+
+        // Hareketi uygula
+        rb.velocity = new Vector2(moveDirection * moveSpeed, rb.velocity.y);
+
+        // Animasyon kontrolü
+        animator.SetBool("isMoving", moveDirection != 0);
+
+        // Karakterin yönünü çevir
+        if (moveDirection != 0)
+        {
+            spriteRenderer.flipX = moveDirection < 0;
+        }
+
+        // Ekran wrap kontrolü eklendi
+        Vector3 viewPos = mainCamera.WorldToViewportPoint(transform.position);
+
+        if (viewPos.x < 0)
+        {
+            // Sol taraftan çýkýnca sað tarafa ýþýnla
+            Vector3 newPos = transform.position;
+            newPos.x = mainCamera.ViewportToWorldPoint(new Vector3(1, viewPos.y, viewPos.z)).x;
+            transform.position = newPos;
+        }
+        else if (viewPos.x > 1)
+        {
+            // Sað taraftan çýkýnca sol tarafa ýþýnla
+            Vector3 newPos = transform.position;
+            newPos.x = mainCamera.ViewportToWorldPoint(new Vector3(0, viewPos.y, viewPos.z)).x;
+            transform.position = newPos;
         }
     }
 

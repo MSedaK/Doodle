@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 343391444}
   - component: {fileID: 343391447}
   - component: {fileID: 343391448}
+  - component: {fileID: 343391449}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -174,18 +175,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.021826029, y: -0.4607706}
+  m_Offset: {x: 0.011682913, y: -0.15463266}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.24, y: 1.2}
+    oldSize: {x: 0.41, y: 0.31}
     newSize: {x: 1.24, y: 1.2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.594921, y: 0.27845883}
+  m_Size: {x: 0.32751122, y: 0.10879186}
   m_EdgeRadius: 0
 --- !u!212 &343391445
 SpriteRenderer:
@@ -228,7 +229,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d191f10b1aa7b5c49a526f49ffb0ed64, type: 3}
+  m_Sprite: {fileID: 1901240382, guid: e01f97771b7f1904e9df7e35df51ceb6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -249,7 +250,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.17, y: -1.11, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.8373, y: 3.8373, z: 3.8373}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -295,6 +296,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   rb: {fileID: 343391447}
+--- !u!95 &343391449
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343391443}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fe2718fab1dc31a47b8f3c419b66cfa4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &471515936
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,9 +629,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformPrefab: {fileID: 471515936}
-  coinPrefab: {fileID: 8629135612433200969, guid: 526d1067cd61efd47ab96cd3fac7e931, type: 3}
+  tcPrefab: {fileID: 4645582599452753675, guid: e22e11e6a87346d4cb78faac2005178b, type: 3}
   platformCount: 300
-  coinSpawnChance: 0.3
+  tcSpawnChance: 0.5
   scoreText: {fileID: 2017784066}
 --- !u!1 &1536720711
 GameObject:

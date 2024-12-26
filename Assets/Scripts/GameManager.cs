@@ -2,17 +2,16 @@ using UnityEngine;
 using TMPro;
 public class GameManager : MonoBehaviour
 {
-    public GameObject platformPrefab; // Platform prefab'i
-    public GameObject coinPrefab; // Coin prefab'i
-    public int platformCount = 300; // Oluþturulacak platform sayýsý
-    public float coinSpawnChance = 0.5f; // Coin spawn olma olasýlýðý
+    public GameObject platformPrefab;
+    public GameObject tcPrefab; // Tekrar TC prefab olarak deðiþtirdik
+    public int platformCount = 300;
+    public float tcSpawnChance = 0.5f; // TC spawn chance olarak deðiþtirdik
     public static GameManager Instance { get; private set; }
-    public static int score = 0; // static score deðiþkeni
+    public static int score = 0; // static score'u koruyoruz
     public TextMeshProUGUI scoreText;
 
     private void Awake()
     {
-        // Singleton Pattern
         if (Instance == null)
         {
             Instance = this;
@@ -25,46 +24,40 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        score = 0; // Oyun baþladýðýnda skoru sýfýrla
         Vector3 spawnPosition = new Vector3();
 
         for (int i = 0; i < platformCount; i++)
         {
-            // Platform oluþtur
-            spawnPosition.y += Random.Range(1f, 3f);
+            spawnPosition.y += Random.Range(1f, 3.1f);
             spawnPosition.x = Random.Range(-2.5f, 2.5f);
 
             GameObject platform = Instantiate(platformPrefab, spawnPosition, Quaternion.identity);
 
-            // Coin spawn etme þansý
-            if (Random.value < coinSpawnChance)
+            if (Random.value < tcSpawnChance)
             {
-                SpawnCoinAbovePlatform(platform);
+                SpawnTCAbovePlatform(platform); // TC spawn metodunu çaðýrýyoruz
             }
         }
     }
 
-    void SpawnCoinAbovePlatform(GameObject platform)
+    void SpawnTCAbovePlatform(GameObject platform) // Metod adýný TC olarak deðiþtirdik
     {
-        // Platform pozisyonunu al ve biraz yukarý kaydýr
-        Vector3 coinPosition = platform.transform.position + new Vector3(0, 0.5f, 0);
-
-        // Coin oluþtur
-        Instantiate(coinPrefab, coinPosition, Quaternion.identity);
+        Vector3 tcPosition = platform.transform.position + new Vector3(0, 0.5f, 0);
+        Instantiate(tcPrefab, tcPosition, Quaternion.identity);
     }
 
     public void AddScore(int value)
     {
-        score += value; // Skoru artýr
-        UpdateScoreUI(); // UI'yý güncelle
-        Debug.Log("Score: " + score); // Konsola yazdýr
+        score += value;
+        UpdateScoreUI();
+        Debug.Log("Score: " + score);
     }
 
     private void UpdateScoreUI()
     {
         if (scoreText != null)
         {
-            scoreText.text = "Score: " + score; // UI'daki metni güncelle
+            scoreText.text = "Score: " + score;
         }
     }
 }
