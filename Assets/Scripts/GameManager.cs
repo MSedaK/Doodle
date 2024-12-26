@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public int platformCount = 300; // Oluþturulacak platform sayýsý
     public float coinSpawnChance = 0.5f; // Coin spawn olma olasýlýðý
     public static GameManager Instance { get; private set; }
-    private int score = 0; // Oyuncunun skoru
+    public static int score = 0; // static score deðiþkeni
     public TextMeshProUGUI scoreText;
 
     private void Awake()
@@ -25,13 +25,14 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        score = 0; // Oyun baþladýðýnda skoru sýfýrla
         Vector3 spawnPosition = new Vector3();
 
         for (int i = 0; i < platformCount; i++)
         {
             // Platform oluþtur
-            spawnPosition.y += Random.Range(.5f, 2f);
-            spawnPosition.x = Random.Range(-5f, 5f);
+            spawnPosition.y += Random.Range(1f, 3f);
+            spawnPosition.x = Random.Range(-2.5f, 2.5f);
 
             GameObject platform = Instantiate(platformPrefab, spawnPosition, Quaternion.identity);
 
