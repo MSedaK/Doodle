@@ -1,40 +1,56 @@
 using UnityEngine;
-using Terresquall;
 
 public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 10f;
     public Rigidbody2D rb;
-    public Terresquall.VirtualJoystick joystick;
-    private Camera mainCamera;  // Ana kamerayý referans olarak tutacaðýz
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        mainCamera = Camera.main;  // Ana kamerayý al
     }
 
     void Update()
     {
-        float moveInput = joystick.GetAxis("Horizontal");
-        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-
-        // Ekran wrap kontrolü
-        Vector3 viewPos = mainCamera.WorldToViewportPoint(transform.position);
-
-        if (viewPos.x < 0)
+        // PC için mouse kontrolü
+        if (Input.GetMouseButton(0)) // Mouse basýlý tutulduðunda
         {
-            // Sol taraftan çýkýnca sað tarafa ýþýnla
-            Vector3 newPos = transform.position;
-            newPos.x = mainCamera.ViewportToWorldPoint(new Vector3(1, viewPos.y, viewPos.z)).x;
-            transform.position = newPos;
+            float screenHalf = Screen.width / 2f;
+            Vector3 mousePos = Input.mousePosition;
+
+            if (mousePos.x > screenHalf)
+            {
+                // Saða git
+                rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+            }
+            else
+            {
+                // Sola git
+                rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+            }
         }
-        else if (viewPos.x > 1)
+        else
         {
-            // Sað taraftan çýkýnca sol tarafa ýþýnla
-            Vector3 newPos = transform.position;
-            newPos.x = mainCamera.ViewportToWorldPoint(new Vector3(0, viewPos.y, viewPos.z)).x;
-            transform.position = newPos;
+            // Mouse basýlý deðilse yatay hareketi durdur
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+
+        // Mobil için dokunma kontrolü
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            float screenHalf = Screen.width / 2f;
+
+            if (touch.position.x > screenHalf)
+            {
+                // Saða git
+                rb.velocity = new Vector2(moveSpeed, rb.velocity.y);
+            }
+            else
+            {
+                // Sola git
+                rb.velocity = new Vector2(-moveSpeed, rb.velocity.y);
+            }
         }
     }
 
