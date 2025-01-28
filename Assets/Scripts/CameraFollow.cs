@@ -31,10 +31,12 @@ public class CameraFollow : MonoBehaviour
         }
 
         // Sadece oyun baþladýktan sonra game over kontrolü yap
+        // ... existing code ...
         if (gameStarted && target.position.y < bottomLimit)
         {
             Debug.Log("Game Over");
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(2); // Önce Game Over ekranýna git
         }
+        // ... existing code ...
     }
 }

@@ -8,6 +8,6 @@ public class FinalScore : MonoBehaviour
     void Start()
     {
         // GameManager'dan son skoru al ve göster
-        finalScoreText.text = "Final Score: " + GameManager.score.ToString();
+        finalScoreText.text = " " + GameManager.score.ToString();
     }
 }
